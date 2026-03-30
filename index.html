@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced English Expressions</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f1eb;
+    --surface: #fdfaf6;
+    --border: #e0d8cc;
+    --text: #2c2416;
+    --text-muted: #7a6f60;
+    --accent: #4a6741;
+    --accent-light: #e8f0e6;
+    --badge-b2: #3a6186;
+    --badge-b2-bg: #e8f0f7;
+    --badge-c1: #7b4a1e;
+    --badge-c1-bg: #f7ede2;
+    --badge-c2: #4a3a7b;
+    --badge-c2-bg: #eeebf7;
+    --shadow: 0 2px 16px rgba(44,36,22,0.08);
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+
+  .header-top {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  header h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .count-badge {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* ── CONTROLS ── */
+  .controls {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .search-row {
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-input:focus { border-color: var(--accent); }
+
+  .search-icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+    font-size: 15px;
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-right: 2px;
+  }
+
+  select, .chip {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: all 0.18s;
+  }
+
+  select {
+    padding: 7px 28px 7px 12px;
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a6f60' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    max-width: 220px;
+  }
+
+  select:focus { border-color: var(--accent); }
+
+  .chip {
+    padding: 6px 14px;
+    background: var(--surface);
+    color: var(--text-muted);
+    user-select: none;
+    font-weight: 400;
+  }
+
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+
+  .chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* ── MAIN GRID ── */
+  main {
+    max-width: 900px;
+    margin: 28px auto;
+    padding: 0 16px 60px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
+    gap: 16px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(44,36,22,0.12);
+  }
+
+  .card-head {
+    padding: 16px 18px 12px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .category-tag {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .level-badge {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 5px;
+    width: fit-content;
+  }
+
+  .level-B2 { background: var(--badge-b2-bg); color: var(--badge-b2); }
+  .level-C1 { background: var(--badge-c1-bg); color: var(--badge-c1); }
+  .level-C2 { background: var(--badge-c2-bg); color: var(--badge-c2); }
+
+  .toggle-icon {
+    color: var(--text-muted);
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: transform 0.25s;
+  }
+
+  .card.open .toggle-icon { transform: rotate(180deg); }
+
+  .card-original {
+    padding: 14px 18px;
+    background: #faf7f2;
+  }
+
+  .label-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 6px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .original-text {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .card-body {
+    display: none;
+    border-top: 1px dashed var(--border);
+  }
+
+  .card.open .card-body { display: block; }
+
+  .scenario-box {
+    padding: 11px 18px;
+    background: var(--accent-light);
+    border-bottom: 1px solid #d4e4d0;
+  }
+
+  .scenario-text {
+    font-size: 12.5px;
+    color: #3a5438;
+    line-height: 1.5;
+  }
+
+  .advanced-list {
+    padding: 14px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .advanced-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .adv-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-light);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    min-width: 22px;
+    text-align: center;
+  }
+
+  .adv-text {
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+
+  .empty p:first-child {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    header { padding: 20px 14px 16px; }
+    main { margin: 18px auto; padding: 0 10px 50px; }
+    .grid { gap: 12px; }
+    .card-head { padding: 13px 14px 10px; }
+    .card-original { padding: 11px 14px; }
+    .advanced-list { padding: 12px 14px 14px; }
+    .scenario-box { padding: 10px 14px; }
+    select { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <h1>Advanced English Expressions</h1>
+    <span class="count-badge" id="countBadge">68 expressions</span>
+  </div>
+  <div class="controls">
+    <div class="search-row">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" id="searchInput" placeholder="Search sentences, scenarios, or categories…">
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Category</span>
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+      </select>
+      <span class="filter-label" style="margin-left:6px">Level</span>
+      <button class="chip active" data-level="all">All</button>
+      <button class="chip" data-level="B2">B2</button>
+      <button class="chip" data-level="C1">C1</button>
+      <button class="chip" data-level="C2">C2</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  68 expression pairs · B2 / C1 / C2 · tap any card to expand
+</footer>
+
+<script>
+const DATA = {"metadata":{"source":"Advanced English Conversations - Daily Life","description":"Structured expression pairs extracted from an English learning transcript, organized for app use.","levels_used":["B2","C1","C2"],"total_entries":68},"expressions":[{"id":1,"category":"Casual Conversation","scenario":"Responding when someone asks how your day was after an exhausting day","original":"I'm tired.","advanced":["It's been one of those days where everything required just a little more energy than I expected."],"level":"C1"},{"id":2,"category":"Expressing Opinion","scenario":"Sharing your view on someone's idea in a polished, thoughtful way","original":"I think it's good.","advanced":["From my point of view, it actually seems like a well-thought-out idea."],"level":"C1"},{"id":3,"category":"Casual Conversation","scenario":"Explaining that plans didn't go as expected but you managed anyway","original":"It didn't work.","advanced":["Things didn't quite go according to plan, but I managed to work my way through it."],"level":"C1"},{"id":4,"category":"Clarification","scenario":"Asking someone to repeat or explain what they said in a polite way","original":"Can you say that again?","advanced":["Would you mind going over that one more time?","Could you walk me through that one more time?","Sorry, could you repeat the last part? I want to make sure I heard you correctly."],"level":"B2"},{"id":5,"category":"Clarification","scenario":"Gently correcting a misunderstanding without sounding defensive","original":"That's not what I meant.","advanced":["I think there may have been a slight misunderstanding. Let me try to rephrase that."],"level":"C1"},{"id":6,"category":"Disagreement","scenario":"Disagreeing with someone respectfully while keeping the conversation smooth","original":"I disagree.","advanced":["I see where you're coming from, but I'm not entirely convinced we're looking at it the same way.","I see your point, but I think I'm looking at it from a slightly different angle."],"level":"C1"},{"id":7,"category":"Empathy and Support","scenario":"Responding with empathy when someone seems stressed or overwhelmed instead of dismissing their feelings","original":"Don't worry.","advanced":["It sounds like you've been carrying a lot on your shoulders lately.","That would frustrate anyone. Do you want to talk through what happened?"],"level":"C1"},{"id":8,"category":"Advice","scenario":"Suggesting someone try something without sounding pushy or direct","original":"You should try this.","advanced":["You might want to consider giving this a try. It could make things a lot easier."],"level":"B2"},{"id":9,"category":"Expressing Uncertainty","scenario":"Admitting you haven't fully understood or processed something yet","original":"I'm not sure.","advanced":["I haven't fully wrapped my head around it yet.","I'm still sorting out my thoughts. It's a bit complicated.","I'm still trying to figure out how I feel about it. I need a bit more time to process everything."],"level":"C1"},{"id":10,"category":"Checking In","scenario":"Responding thoughtfully when a friend asks how you've been feeling lately","original":"I'm fine.","advanced":["I've been doing fairly well, just trying to stay grounded and manage everything as it comes.","I'm managing. Some days are easier than others, but I'm doing my best."],"level":"C1"},{"id":11,"category":"Gratitude and Appreciation","scenario":"Responding graciously when someone pays you a compliment or does something kind","original":"Thank you.","advanced":["That means a lot. I really appreciate you saying that.","I can't tell you how much that means. Thank you for being so thoughtful.","That was incredibly thoughtful of you. I truly appreciate it."],"level":"B2"},{"id":12,"category":"Gratitude and Appreciation","scenario":"Apologizing for being late in a more graceful and considerate way","original":"Sorry I'm late.","advanced":["Thank you for your patience. I got caught up in something unexpectedly."],"level":"B2"},{"id":13,"category":"Empathy and Support","scenario":"Showing concern and inviting someone to talk when they seem troubled or withdrawn","original":"Are you okay?","advanced":["You seem a bit quieter than usual. Everything all right?","I can hear the concern in your voice. Do you want to talk through it together?"],"level":"C1"},{"id":14,"category":"Clarification","scenario":"Checking that you understood what someone said by restating their point","original":"I don't get it.","advanced":["Let me make sure I'm following. You're saying that the schedule changed at the last minute, right?","I'm not entirely sure I understand. Could you explain that part again?","Sorry, I'm not entirely sure I caught that. Could you explain it a bit more?"],"level":"B2"},{"id":15,"category":"Agreement","scenario":"Expressing strong agreement in a more natural and engaged way","original":"Exactly.","advanced":["That's precisely what I was thinking.","I completely get what you mean and I feel the same way.","That makes a lot of sense. I see where you're coming from."],"level":"B2"},{"id":16,"category":"Gratitude and Appreciation","scenario":"Thanking someone sincerely for helping you or being present for you","original":"Thanks for helping.","advanced":["I really appreciate you taking the time to help me out today.","I really appreciate you being here. It means more than you know.","Thank you so much. Your support means more than you know."],"level":"B2"},{"id":17,"category":"Making Plans","scenario":"Suggesting a meeting time in a casual and flexible way","original":"Let's meet at 5.","advanced":["How about we aim for around 5-ish? That should give us plenty of time."],"level":"B2"},{"id":18,"category":"Making Plans","scenario":"Expressing flexibility when someone asks for your preference on plans","original":"I don't mind.","advanced":["I'm pretty flexible, whatever works best for you."],"level":"B2"},{"id":19,"category":"Reacting to Good News","scenario":"Reacting warmly and genuinely when someone shares exciting or wonderful news","original":"That's great.","advanced":["That's wonderful to hear. I'm genuinely happy for you.","That's fantastic news! I'm genuinely excited for you.","That's absolutely wonderful. I'm truly thrilled for you.","That's such heartwarming news. I'm genuinely happy for you."],"level":"B2"},{"id":20,"category":"Expressing Opinion","scenario":"Sharing a balanced, honest opinion about something that could still improve","original":"I think it's okay.","advanced":["To be honest, I think it has potential, but it could benefit from a few adjustments.","If I'm being completely honest, I think it's moving in the right direction, but there's still room for improvement.","I think it's headed in a really positive direction. You're definitely on the right track."],"level":"C1"},{"id":21,"category":"Expressing Surprise","scenario":"Reacting to something unexpected or surprising that caught you off guard","original":"I didn't expect that.","advanced":["That caught me off guard. I wasn't expecting it at all.","I wasn't expecting that outcome at all. It really took me by surprise.","Wow, that completely changes things. I wasn't expecting that.","Wow, that took quite a turn. I wasn't expecting that at all."],"level":"B2"},{"id":22,"category":"Expressing Surprise","scenario":"Reacting to something astonishing, funny, or hard to believe with emotion","original":"Really?","advanced":["You're kidding! That must have been quite a moment.","That's hilarious! I can only imagine what that must have looked like.","I can't believe that happened. It must have been an intense moment.","That's interesting. How did you feel about it at the time?"],"level":"B2"},{"id":23,"category":"Empathy and Support","scenario":"Offering to help someone work through a problem they've mentioned","original":"I can help.","advanced":["I'd be happy to help you work through it. What seems to be the main issue?","Let's go through it step by step. I'm sure we'll figure it out.","I can see why that would be confusing. Want to walk through it together?"],"level":"B2"},{"id":24,"category":"Empathy and Support","scenario":"Acknowledging that someone has a lot to deal with and gently checking how they're holding up","original":"That's a lot to deal with.","advanced":["That sounds like a lot to process. How are you holding up?","That must have been a lot to take in. How are you feeling about it now?"],"level":"C1"},{"id":25,"category":"Encouragement","scenario":"Encouraging someone who doubts their ability to handle a difficult situation","original":"You can do it.","advanced":["I genuinely believe you're capable. You've handled difficult things before, and you can handle this too.","You're doing better than you think. Sometimes we're too hard on ourselves to notice.","Don't underestimate yourself. You're capable of much more than you think."],"level":"C1"},{"id":26,"category":"Encouragement","scenario":"Acknowledging someone's hard work and effort after completing something challenging","original":"Good job.","advanced":["That must feel incredibly satisfying. You've clearly put a lot of effort into it.","You've clearly put a lot of thought into this. It really shows.","You've clearly put a lot of energy into this. It really shows in the result.","That's a wonderful achievement. You should feel genuinely proud of yourself."],"level":"C1"},{"id":27,"category":"Advice","scenario":"Gently warning someone not to act too hastily without thinking it through","original":"Be careful.","advanced":["Just make sure you're not rushing into it. Take a moment to think it through."],"level":"B2"},{"id":28,"category":"Agreement","scenario":"Acknowledging that someone raised a point you hadn't considered before","original":"Good point.","advanced":["That's a fair point. I hadn't considered it from that angle."],"level":"C1"},{"id":29,"category":"Expressing Opinion","scenario":"Offering a balanced view when someone is weighing a difficult decision or choosing between options","original":"It depends.","advanced":["It's a tough call, but it sounds like you've thought it through carefully.","Both opportunities sound promising, but it really depends on which one aligns better with the kind of lifestyle you want.","It's an interesting situation. I think it depends on what matters most to you."],"level":"C1"},{"id":30,"category":"Empathy and Support","scenario":"Responding with empathy when someone is going through a very difficult situation","original":"That's difficult.","advanced":["That sounds incredibly challenging, but the way you're handling it shows a lot of strength.","It sounds like you've had so much to manage. You've handled it incredibly well."],"level":"C1"},{"id":31,"category":"Empathy and Support","scenario":"Responding graciously and constructively when someone apologizes to you","original":"It's okay.","advanced":["I appreciate you saying that, and don't worry, we'll sort it out together.","I appreciate the apology. Let's focus on moving forward."],"level":"B2"},{"id":32,"category":"Empathy and Support","scenario":"Reassuring someone that you'll figure something out together without dismissing the problem","original":"Don't worry, we'll figure it out.","advanced":["No need to worry. We'll figure it out together, step by step."],"level":"B2"},{"id":33,"category":"Checking In","scenario":"Catching up warmly with a friend you haven't seen or spoken to in a long time","original":"Long time no see.","advanced":["It feels like ages since we last caught up. How have you been?"],"level":"B2"},{"id":34,"category":"Empathy and Support","scenario":"Reassuring someone who is worried about making a mistake or slipping up","original":"Mistakes happen.","advanced":["It's completely normal to feel that way. Just remember that mistakes are part of the learning process.","We all slip up sometimes. What matters is that you're learning from it.","We've all been there. Don't worry, it happens to everyone."],"level":"B2"},{"id":35,"category":"Clarification","scenario":"Politely asking someone to speak more slowly so you can follow along","original":"Slow down.","advanced":["Would you mind going a little slower? I want to make sure I'm keeping up."],"level":"B2"},{"id":36,"category":"Checking In","scenario":"Answering casually when someone asks what you have on or how your week is going","original":"I'm busy.","advanced":["I've got a few things lined up, but I'm taking the day as it comes.","It's been a bit hectic, but I'm managing. How about you?","It's been a pretty demanding week, but I'm taking things one step at a time."],"level":"B2"},{"id":37,"category":"Expressing Opinion","scenario":"Asking for someone's view in a polite, open-ended, and genuinely interested way","original":"What do you think?","advanced":["I'd love to hear your thoughts. What's your perspective on it?","I'd love to hear your view. How do you see the situation?"],"level":"B2"},{"id":38,"category":"Checking In","scenario":"Signaling to someone that you're actively listening and want them to continue","original":"Go on.","advanced":["I'm with you. Go on.","I'm listening. Go ahead.","I'm following you so far. What happened after that?","I'm with you so far. What happened next?"],"level":"B2"},{"id":39,"category":"Empathy and Support","scenario":"Expressing deep empathy when someone shares something personal and painful with you","original":"I understand. That must have been hard.","advanced":["That must have been really difficult for you. I'm glad you felt comfortable sharing it with me.","I'm really sorry you had to go through that. It must have been incredibly tough."],"level":"C1"},{"id":40,"category":"Empathy and Support","scenario":"Acknowledging that someone has been exhausted and validating how they feel","original":"You seem tired.","advanced":["You've had a lot on your plate recently. It makes sense that you're feeling drained."],"level":"C1"},{"id":41,"category":"Encouragement","scenario":"Reassuring someone who is nervous or anxious about an upcoming event or challenge","original":"You'll be fine.","advanced":["It's normal to feel a bit anxious before something important, but you've handled things like this before.","It's completely natural to feel nervous, but you've prepared well. You're going to do just fine."],"level":"C1"},{"id":42,"category":"Empathy and Support","scenario":"Inviting someone to open up by creating a safe, pressure-free space for them to share","original":"You can talk to me.","advanced":["If you ever feel like talking about it, I'm here to listen.","If there's anything you want to share, I'm here. No pressure at all.","If you ever want to talk again, you know where to find me. I'm always here to listen."],"level":"C1"},{"id":43,"category":"Empathy and Support","scenario":"Responding with patience and empathy when someone is frustrated or upset","original":"Calm down.","advanced":["I can hear how frustrating this has been for you. Let's take a moment and figure things out together."],"level":"C1"},{"id":44,"category":"Expressing Uncertainty","scenario":"Telling someone you're not sure if you're available but will check and confirm","original":"Maybe.","advanced":["I might be. Let me check my schedule and get back to you.","I'm keeping my options open. I'm giving myself time to decide what feels right."],"level":"B2"},{"id":45,"category":"Empathy and Support","scenario":"Validating someone's emotional reaction to a difficult or unfair situation","original":"I understand why you feel that way.","advanced":["I completely understand why you reacted that way. It makes perfect sense.","It's completely understandable to feel that way. Anyone would.","Anyone in your position would feel the same. Your reaction is completely valid."],"level":"C1"},{"id":46,"category":"Empathy and Support","scenario":"Expressing disappointment about an outcome while showing empathy for what the other person hoped for","original":"That's too bad.","advanced":["I was really hoping things would turn out differently, but I understand how it happened.","I'm really sorry things didn't go as you hoped. I know how much it meant to you."],"level":"C1"},{"id":47,"category":"Encouragement","scenario":"Comforting someone who feels overwhelmed or unsure of what to do next","original":"Just take it one step at a time.","advanced":["You don't have to figure it all out at once. Take it one moment at a time.","It's okay not to have everything figured out right away. Just take it one step at a time.","Just breathe. You're doing the best you can, and that's all anyone can ask."],"level":"C1"},{"id":48,"category":"Empathy and Support","scenario":"Acknowledging that someone has been juggling too many responsibilities at once","original":"You have a lot going on.","advanced":["That makes complete sense. You've been juggling so much lately."],"level":"C1"},{"id":49,"category":"Gratitude and Appreciation","scenario":"Thanking someone sincerely for confiding in you or being honest with you","original":"Thanks for telling me.","advanced":["Thank you for being so open with me. I really value your honesty.","Thank you for opening up to me. I truly appreciate your honesty.","Thank you for trusting me with that. I know it can't be easy to talk about.","I really appreciate you telling me that. It means a lot that you trust me."],"level":"C1"},{"id":50,"category":"Encouragement","scenario":"Reassuring someone facing a difficult decision that whatever they choose is okay","original":"It's up to you.","advanced":["Whatever decision you make, trust that you're doing the best you can with what you know now.","Only you know what feels right, but I'm here if you want to talk it through."],"level":"C1"},{"id":51,"category":"Encouragement","scenario":"Motivating someone who feels they are falling behind or losing steam","original":"Don't give up.","advanced":["You're human. Everyone feels that way sometimes. What matters is that you keep going.","I know things feel heavy right now, but you've overcome so much already. You'll get through this too.","Change can be uncomfortable, but it often leads to growth. You're stronger than you realize."],"level":"C1"},{"id":52,"category":"Encouragement","scenario":"Helping someone move forward when they're paralyzed by fear of failure or judgment","original":"It's okay to be scared.","advanced":["It's okay to be afraid. Courage isn't about feeling ready; it's about moving forward anyway.","You can't please everyone, and that's completely okay. What matters is doing what feels right for you."],"level":"C2"},{"id":53,"category":"Reacting to Good News","scenario":"Expressing genuine happiness and admiration when someone shares a success or accomplishment","original":"Good for you.","advanced":["That's wonderful. You're stepping out of your comfort zone, and that's how growth happens.","I'm honestly so happy for you. You deserve every bit of this.","I'm so glad things are falling into place for you. You truly deserve this moment."],"level":"B2"},{"id":54,"category":"Empathy and Support","scenario":"Making someone feel they are not alone in what they're going through","original":"I'm here for you.","advanced":["I'm here for you, whatever you need.","You don't have to face this alone. I'm right here with you.","I'm really grateful we can talk like this. It means a lot to me."],"level":"C1"},{"id":55,"category":"Gratitude and Appreciation","scenario":"Thanking someone for being patient with you in a warm and genuine way","original":"Thanks for your patience.","advanced":["Thanks for bearing with me. I really appreciate your understanding."],"level":"B2"},{"id":56,"category":"Checking In","scenario":"Asking someone about their weekend plans in a warm, casual way","original":"What will you do this weekend?","advanced":["Do you have anything nice planned for the weekend?"],"level":"B2"},{"id":57,"category":"Expressing Relief","scenario":"Expressing relief that a stressful situation resolved itself or turned out okay","original":"I'm glad it worked out.","advanced":["I'm so relieved everything turned out well in the end.","I'm so glad everything settled down. I've been hoping for that."],"level":"B2"},{"id":58,"category":"Expressing Relief","scenario":"Acknowledging that something didn't go perfectly but that you made the best of it","original":"It wasn't perfect, but it's fine.","advanced":["It wasn't ideal, but I think we made the best of the situation."],"level":"B2"},{"id":59,"category":"Encouragement","scenario":"Admiring someone's ambition or determination toward a goal they've set","original":"Good luck.","advanced":["I really admire your determination. You're capable of achieving so much.","I really admire the way you handled that. You stayed calm even in a stressful moment.","The way you keep going despite everything is inspiring."],"level":"C1"},{"id":60,"category":"Advice","scenario":"Encouraging someone to try something without pressuring or pushing them","original":"Just do it.","advanced":["If it feels right to you, maybe give it a try and see how it goes.","If you're unsure, maybe try taking a small step first and see how it feels."],"level":"B2"},{"id":61,"category":"Empathy and Support","scenario":"Helping someone shift their focus away from regret and toward moving forward","original":"Forget about it.","advanced":["What's done is done. Focus on what you can do moving forward."],"level":"B2"},{"id":62,"category":"Expressing Relief","scenario":"Sharing genuine delight about something that made your day or put you in a great mood","original":"That made me happy.","advanced":["That genuinely made my day. I can't stop smiling about it.","That puts a big smile on my face. I'm really glad things are going well for you."],"level":"B2"},{"id":63,"category":"Advice","scenario":"Helping someone who feels stuck to gain a fresh perspective on a situation","original":"Take a step back.","advanced":["Maybe take a step back and look at the bigger picture. It can help things feel clearer."],"level":"C1"},{"id":64,"category":"Making Plans","scenario":"Asking someone to keep you updated on the outcome of something you care about","original":"Let me know how it goes.","advanced":["Whenever you get the chance, let me know how things turn out.","Whenever you have a moment, let me know how everything goes."],"level":"B2"},{"id":65,"category":"Reacting to Good News","scenario":"Reacting meaningfully to a small win or meaningful progress someone has made","original":"Nice job.","advanced":["You should feel really proud. That's a meaningful achievement.","Small steps count just as much as big ones.","That's really impressive. You must feel proud of yourself."],"level":"B2"},{"id":66,"category":"Empathy and Support","scenario":"Reacting to someone who had to deal with an unexpected situation they weren't prepared for","original":"Oh wow, that was unexpected.","advanced":["That must have thrown you off. You handled it better than most people would."],"level":"C1"},{"id":67,"category":"Encouragement","scenario":"Responding to someone who is considering a new direction or fresh start in their life","original":"That sounds like a new start.","advanced":["It sounds like you're ready for a fresh start. Trust yourself as you move forward."],"level":"C1"},{"id":68,"category":"Casual Conversation","scenario":"Giving an honest, realistic progress update when someone asks how a project or task is going","original":"Almost done.","advanced":["I'm getting there. Just a few more pieces to put together.","I've wrapped up most of it. I just need to finalize a few small things."],"level":"B2"}]};
+
+const expressions = DATA.expressions;
+let activeLevel = 'all';
+let activeCategory = 'all';
+let searchQuery = '';
+
+// ── populate category dropdown
+const categories = [...new Set(expressions.map(e => e.category))].sort();
+const catSelect = document.getElementById('categoryFilter');
+categories.forEach(c => {
+  const opt = document.createElement('option');
+  opt.value = c; opt.textContent = c;
+  catSelect.appendChild(opt);
+});
+
+// ── filter logic
+function filtered() {
+  return expressions.filter(e => {
+    const matchLevel = activeLevel === 'all' || e.level === activeLevel;
+    const matchCat = activeCategory === 'all' || e.category === activeCategory;
+    const q = searchQuery.toLowerCase();
+    const matchSearch = !q ||
+      e.original.toLowerCase().includes(q) ||
+      e.scenario.toLowerCase().includes(q) ||
+      e.category.toLowerCase().includes(q) ||
+      e.advanced.some(a => a.toLowerCase().includes(q));
+    return matchLevel && matchCat && matchSearch;
+  });
+}
+
+// ── render cards
+function render() {
+  const data = filtered();
+  const grid = document.getElementById('grid');
+  document.getElementById('countBadge').textContent =
+    data.length === expressions.length
+      ? `${expressions.length} expressions`
+      : `${data.length} of ${expressions.length}`;
+
+  if (data.length === 0) {
+    grid.innerHTML = `<div class="empty"><p>No expressions found</p><p>Try adjusting your filters or search.</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = data.map(e => `
+    <div class="card" data-id="${e.id}">
+      <div class="card-head">
+        <div class="card-meta">
+          <span class="category-tag">${e.category}</span>
+          <span class="level-badge level-${e.level}">${e.level}</span>
+        </div>
+        <span class="toggle-icon">⌄</span>
+      </div>
+      <div class="card-original">
+        <div class="label-row"><span class="section-label">Original</span></div>
+        <div class="original-text">"${e.original}"</div>
+      </div>
+      <div class="card-body">
+        <div class="scenario-box">
+          <div class="scenario-text">💬 ${e.scenario}</div>
+        </div>
+        <div class="advanced-list">
+          <div class="label-row"><span class="section-label">Advanced</span></div>
+          ${e.advanced.map((a, i) => `
+            <div class="advanced-item">
+              <span class="adv-num">${i + 1}</span>
+              <span class="adv-text">${a}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`).join('');
+
+  // toggle on click
+  grid.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('open'));
+  });
+}
+
+// ── event listeners
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value; render();
+});
+
+catSelect.addEventListener('change', e => {
+  activeCategory = e.target.value; render();
+});
+
+document.querySelectorAll('.chip[data-level]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.chip[data-level]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeLevel = btn.dataset.level;
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>
