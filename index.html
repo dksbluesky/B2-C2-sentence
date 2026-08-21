@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#4a6741">
 <title>📗Advanced English Expressions</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/b2-c2-expressions-192.png">
+<link rel="icon" sizes="192x192" href="icons/b2-c2-expressions-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -495,6 +499,11 @@ document.querySelectorAll('.chip[data-level]').forEach(btn => {
 });
 
 render();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch((error) => console.warn('Service worker registration failed:', error));
+}
 </script>
 </body>
 </html>
